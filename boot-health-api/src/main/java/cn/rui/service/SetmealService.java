@@ -5,6 +5,7 @@ import cn.rui.entity.QueryPageBean;
 import cn.rui.pojo.Setmeal;
 
 import java.util.List;
+import java.util.Set;
 
 public interface SetmealService {
 
@@ -24,5 +25,5 @@ public interface SetmealService {
     void update(List<Integer> ids, Setmeal setmeal);
 
     //查询套餐中所有的图片集合
-    List<String> findImgList();
+    Set<String> findImgList();
 }

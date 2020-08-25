@@ -15,10 +15,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 徽州大都督
@@ -31,6 +29,8 @@ public class SetmealServiceImpl implements SetmealService {
     @Autowired
     private SetmealMapper setmealMapper;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     //新增套餐
     public void add(List<Integer> ids, Setmeal setmeal) {
@@ -89,6 +89,19 @@ public class SetmealServiceImpl implements SetmealService {
     //编辑套餐
     public void update(List<Integer> ids, Setmeal setmeal) {
 
+        //将旧图片名称存入缓存
+        Setmeal byId = setmealMapper.findById (setmeal.getId ());
+
+        if (redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE)!=null){
+            Set<String> imgList = (Set<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
+            imgList.add (byId.getImg ());
+            redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE,imgList,60, TimeUnit.DAYS);
+        }else {
+            Set<String> imgList = new HashSet<> ();
+            imgList.add (byId.getImg ());
+            redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE,imgList,60, TimeUnit.DAYS);
+        }
+
         //更新套餐内容
         setmealMapper.update (setmeal);
 
@@ -109,7 +122,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     //查询套餐里所有的图片集合
-    public List<String> findImgList() {
+    public Set<String> findImgList() {
 
         return setmealMapper.findImgList();
     }

@@ -447,6 +447,7 @@
                 },
                 //添加
                 handleAdd () {
+                    this.resetForm()
                     axios.post("/setmeal/add/"+this.checkgroupIds,this.formData).then(resp=>{
                         if (resp.data.flag){
                             //添加成功

@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 定时清理垃圾图片,清理没有保存在数据库中的图片
@@ -23,6 +24,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class TimingDeleteImg {
+
 
     @Reference
     private SetmealService setmealService;
@@ -54,10 +56,10 @@ public class TimingDeleteImg {
     public void DeleteImg(){
 
         if (redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE)!=null){
-            List<String> imgList= (List<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
+            Set<String> imgList= (Set<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
 
             //查询t_setmeal数据库中图片集合
-                List<String> baseList=setmealService.findImgList();
+                Set<String> baseList=setmealService.findImgList();
             for (String img : imgList) {
                 if (!baseList.contains (img)){
                     //将数据库中不包含的图片删除
@@ -69,6 +71,7 @@ public class TimingDeleteImg {
             redisTemplate.delete (RedisConstant.IMG_SAVE);
 
         }
+
 
         log.info ("定时任务触发了...");
     }

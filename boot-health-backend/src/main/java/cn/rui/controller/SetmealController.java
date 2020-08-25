@@ -15,9 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 体验套餐
@@ -52,13 +51,13 @@ public class SetmealController {
 
             //将图片名称保存到redis中
             if (redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE) == null) {
-                List<String> imgList = new ArrayList<> ();
+                Set<String> imgList = new HashSet<> ();
                 imgList.add (newName);
-                redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE, imgList);
+                redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE, imgList,60, TimeUnit.DAYS);
             } else {
-                List<String> imgList = (List<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
+                Set<String> imgList = (Set<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
                 imgList.add (newName);
-                redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE, imgList);
+                redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE, imgList,60, TimeUnit.DAYS);
             }
 
         } catch (IOException e) {

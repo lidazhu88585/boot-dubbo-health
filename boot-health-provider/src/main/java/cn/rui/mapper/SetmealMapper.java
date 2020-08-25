@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface SetmealMapper {
     void add(Setmeal setmeal);
@@ -21,5 +22,5 @@ public interface SetmealMapper {
 
     void deleteBySetMealId(Integer id);
 
-    List<String> findImgList();
+    Set<String> findImgList();
 }
