@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.rui.mapper.CheckGroupMapper">
+
+
+    <!--新增检查组信息-->
+    <insert id="add" parameterType="cn.rui.pojo.CheckGroup">
+
+        <!--获取插入数据的id,order属性是后执行,keyProperty的值要和数据的id值一样-->
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select LAST_INSERT_ID()
+        </selectKey>
+
+        insert into t_checkgroup (code,name,helpCode,sex,remark,attention)
+        values
+        (#{code},#{name},#{helpCode},#{sex},#{remark},#{attention})
+    </insert>
+
+    <!--新增检查组和检查项关联数据-->
+    <insert id="setCheckGroupIdAndCheckItemId" parameterType="map">
+        insert into t_checkgroup_checkitem (checkgroup_id,checkitem_id)
+        values
+        (#{checkgroupId},#{checkitemId})
+    </insert>
+
+
+    <!--根据查询条件检查组分页查询 resultType返回值 parameterType参数类型 selectByCondition方法名称-->
+    <select id="selectByCondition" parameterType="String" resultType="cn.rui.pojo.CheckGroup">
+        select * from t_checkgroup
+        <if test="value != null and value.length > 0 and value !=''">
+            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
+        </if>
+    </select>
+
+    <!--根据id查询检查组-->
+    <select id="findById" resultType="cn.rui.pojo.CheckGroup" parameterType="int">
+        select * from t_checkgroup where id = #{id}
+    </select>
+
+    <!--根据检查组的id查询所有关联的检查项id-->
+    <select id="findCheckItemById" parameterType="int" resultType="int">
+        select checkitem_id from t_checkgroup_checkitem where checkgroup_id =#{id}
+    </select>
+
+    <!--编辑检查组-->
+    <update id="updateCheckGroup" parameterType="cn.rui.pojo.CheckGroup">
+        update t_checkgroup
+        <set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--根据检查项id删除关联的检查项-->
+    <delete id="deleteById" parameterType="int">
+        delete from t_checkgroup_checkitem where checkitem_id = #{id}
+    </delete>
+
+    <!--根据id删除检查组-->
+    <delete id="deleteCheckGroupById" parameterType="int">
+        delete from t_checkgroup where id = #{id}
+    </delete>
+
+    <!--根据检查组id删除关联的检查项-->
+    <delete id="deleteByGroupId" parameterType="int">
+        delete from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </delete>
+
+    <!--查询所有检查组-->
+    <select id="findAll" resultType="cn.rui.pojo.CheckGroup">
+        select * from t_checkgroup
+    </select>
+</mapper>

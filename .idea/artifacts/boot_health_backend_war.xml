@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="boot-health-backend:war">
+    <output-path>$PROJECT_DIR$/boot-health-backend/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>boot-health-backend</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="health_backend-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="boot-health-backend:war exploded" />
+    </root>
+  </artifact>
+</component>
