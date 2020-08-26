@@ -6,7 +6,6 @@ server:
 logging:
   level:
     cn.rui: debug
-  file: /dubbo.log
 spring:
   mvc:
     view:

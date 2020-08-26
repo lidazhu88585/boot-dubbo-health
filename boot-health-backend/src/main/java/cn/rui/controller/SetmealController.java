@@ -120,4 +120,18 @@ public class SetmealController {
 
         return new Result (true, MessageConstant.EDIT_SETMEAL_SUCCESS);
     }
+
+
+    //删除套餐
+    @DeleteMapping("deleteById/{id}")
+    public Result deleteById(@PathVariable("id")Integer id){
+        try {
+            setmealService.deleteById(id);
+        } catch (Exception e) {
+            e.printStackTrace ();
+            return new Result (false,MessageConstant.DELETE_SETMEAL_FAIL);
+        }
+
+        return new Result (true,MessageConstant.DELETE_SETMEAL_SUCCESS);
+    }
 }

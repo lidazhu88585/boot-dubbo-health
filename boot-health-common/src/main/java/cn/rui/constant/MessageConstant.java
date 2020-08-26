@@ -67,4 +67,7 @@ public class MessageConstant {
     public static final String GET_SETMEAL_LIST_SUCCESS = "查询套餐列表数据成功";
     public static final String GET_SETMEAL_LIST_FAIL = "查询套餐列表数据失败";
     public static final String DELETE_FAIL_CHECKITEM="已经有检查组关联此检查项，请优先删除检查组后在操作";
+    public static final String DADE_ERROR="文件日期格式有误,要求yyyy/MM/dd";
+    public static final String DELETE_SETMEAL_SUCCESS="删除套餐成功";
+    public static final String DELETE_SETMEAL_FAIL="删除套餐失败";
 }

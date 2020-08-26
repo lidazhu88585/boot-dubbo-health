@@ -3,5 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/boot-health-backend" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/boot-health-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/boot-health-timingtask" charset="UTF-8" />
   </component>
 </project>

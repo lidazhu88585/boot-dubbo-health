@@ -26,4 +26,7 @@ public interface SetmealService {
 
     //查询套餐中所有的图片集合
     Set<String> findImgList();
+
+    //删除套餐
+    void deleteById(Integer id);
 }

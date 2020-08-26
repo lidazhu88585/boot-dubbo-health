@@ -127,5 +127,26 @@ public class SetmealServiceImpl implements SetmealService {
         return setmealMapper.findImgList();
     }
 
+    @Override
+    //删除套餐
+    public void deleteById(Integer id) {
+
+        //根据id查询套餐信息
+        Setmeal setmeal = setmealMapper.findById (id);
+
+        //先删除套餐关联的检查组
+        setmealMapper.deleteBySetMealId (id);
+
+        //再删除套餐信息
+        setmealMapper.deleteById(id);
+
+        //将删除后的套餐图片名称保存到缓存
+        if (redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE)!=null){
+            Set<String> set = (Set<String>) redisTemplate.opsForValue ().get (RedisConstant.IMG_SAVE);
+            set.add (setmeal.getImg ());
+            redisTemplate.opsForValue ().set (RedisConstant.IMG_SAVE,set);
+        }
+    }
+
 
 }

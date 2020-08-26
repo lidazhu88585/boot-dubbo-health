@@ -23,4 +23,6 @@ public interface SetmealMapper {
     void deleteBySetMealId(Integer id);
 
     Set<String> findImgList();
+
+    void deleteById(Integer id);
 }

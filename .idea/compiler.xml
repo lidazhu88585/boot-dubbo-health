@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="boot-health-common" />
-        <module name="boot-health-backend" />
         <module name="boot-health-api" />
+        <module name="boot-health-backend" />
+        <module name="boot-health-timingtask" />
+        <module name="boot-health-common" />
         <module name="boot-health-provider" />
       </profile>
     </annotationProcessing>
@@ -18,12 +19,14 @@
       <module name="boot-health-backend" target="1.8" />
       <module name="boot-health-common" target="1.5" />
       <module name="boot-health-provider" target="1.8" />
+      <module name="boot-health-timingtask" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="boot-health-backend" options="-parameters" />
       <module name="boot-health-provider" options="-parameters" />
+      <module name="boot-health-timingtask" options="-parameters" />
     </option>
   </component>
 </project>

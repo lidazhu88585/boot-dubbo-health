@@ -96,7 +96,7 @@
                         <el-table-column label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-button type="primary" @click="handleUpdate(scope.row)" size="mini">编辑</el-button>
-                                <el-button size="mini" type="danger">删除</el-button>
+                                <el-button size="mini" @click="handleDelete(scope.row)" type="danger">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -386,6 +386,29 @@
                   })
                 },
 
+                //删除方法
+                handleDelete(row){
+
+                    this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        axios.delete("/setmeal/deleteById/"+row.id).then(resp=>{
+                            if (resp.data.flag){
+                                this.$message({
+                                    type: 'success',
+                                    message: resp.data.message
+                                });
+                            } else {
+                                this.$message.error(resp.data.message)
+                            }
+                        }).finally(()=>{
+                            this.findPage()
+                        })
+                    })
+                },
+
                 //弹出编辑窗口
                 handleUpdate(row){
 
@@ -447,7 +470,6 @@
                 },
                 //添加
                 handleAdd () {
-                    this.resetForm()
                     axios.post("/setmeal/add/"+this.checkgroupIds,this.formData).then(resp=>{
                         if (resp.data.flag){
                             //添加成功
@@ -481,13 +503,15 @@
                 resetForm() {
                     this.formData={}
                     this.activeName='first'
+                    this.checkgroupIds=[]
                     this.imageUrl=null
-                    this.checkitemIds=[]
+
                 },
                 // 弹出添加窗口
                 handleCreate() {
                     this.resetForm()
                     this.dialogFormVisible=true
+
                     //发送请求获取所有检查组
                     axios.get("/checkgroup/findAll").then(resp=>{
                         if (resp.data.flag){

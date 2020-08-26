@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/boot-health-api/pom.xml" />
         <option value="$PROJECT_DIR$/boot-health-common/pom.xml" />
         <option value="$PROJECT_DIR$/boot-health-backend/pom.xml" />
+        <option value="$PROJECT_DIR$/boot-health-timingtask/pom.xml" />
       </list>
     </option>
   </component>

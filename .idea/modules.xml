@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/boot-health-backend/boot-health-backend.iml" filepath="$PROJECT_DIR$/boot-health-backend/boot-health-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot-health-common/boot-health-common.iml" filepath="$PROJECT_DIR$/boot-health-common/boot-health-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot-health-provider/boot-health-provider.iml" filepath="$PROJECT_DIR$/boot-health-provider/boot-health-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot-health-timingtask/boot-health-timingtask.iml" filepath="$PROJECT_DIR$/boot-health-timingtask/boot-health-timingtask.iml" />
     </modules>
   </component>
 </project>

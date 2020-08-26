@@ -5,7 +5,6 @@ server:
 logging:
   level:
     cn.rui: debug
-  file: /dubbo.log
 spring:
   datasource:
     name: dubbo-ssm
